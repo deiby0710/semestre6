@@ -1,6 +1,7 @@
 # DEIBY ALEJANDRO DELGADO ESTRADA
 # YOEL ALEJANDRO TORRES ARCINIEGAS
 from pila import Pila
+from lse import Lista_SE
 
 class Postfija:
     def __init__(self, expresion_infija=str):
@@ -26,7 +27,7 @@ class Postfija:
             "-": (1, 1),  
             "(": (5, 0)  
         }
-        resultado = []  
+        resultado = Lista_SE()
         pila_operadores = Pila()  
         expresion_lista = self.infija().split(" ")
 
@@ -35,20 +36,25 @@ class Postfija:
                 pila_operadores.apilar(token)  
             elif token == ")":  
                 while not pila_operadores.es_vacia() and pila_operadores.cima() != "(":
-                    resultado.append(pila_operadores.desapilar())  
+                    resultado.adicionar(pila_operadores.desapilar())  
                 pila_operadores.desapilar()
             elif token in operadores:  
                 while (not pila_operadores.es_vacia() and  
                        operadores[token][0] <= operadores[pila_operadores.cima()][1]):  
-                    resultado.append(pila_operadores.desapilar())  
+                    resultado.adicionar(pila_operadores.desapilar())  
                 pila_operadores.apilar(token)  
             else:  
-                resultado.append(token)
+                resultado.adicionar(token)
 
         while not pila_operadores.es_vacia():  
-            resultado.append(pila_operadores.desapilar())  
-            
-        return " ".join(resultado) 
+            resultado.adicionar(pila_operadores.desapilar())  
+        
+        a = ''
+        for i in resultado:
+            a += f'{i} '
+        a = a.rstrip()
+
+        return a
 
     def eval_expr_aritm(self) -> float:
         operadores = {'+': lambda x, y: x + y, '-': lambda x, y: x - y,
