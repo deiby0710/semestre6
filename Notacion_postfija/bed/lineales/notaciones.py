@@ -5,9 +5,19 @@ from lse import Lista_SE
 
 class Postfija:
     def __init__(self, expresion_infija=str):
+        """Método que inicializa una la clase Postfija.
+        """
         self.expresion_infija = expresion_infija.replace(" ","")
     
     def infija(self) -> str:
+        """Método que retorna la expresión Infija original, separando cada
+        operando y cada operador, incluyendo los paréntesis, por un espacio
+        en blanco.
+        Returns
+        -------
+        str
+            retorna la cadena de la expresion infija original
+        """
         def recursion(i=0):
             if i == len(self.expresion_infija):
                 return ""
@@ -19,6 +29,13 @@ class Postfija:
         return recursion().strip()
 
     def postfija(self):
+        """Método que convierte una expresión Infija a una expresión Postfija
+
+        Returns
+        -------
+        str
+            retorna la expresion postfija
+        """
         operadores = {
             "^": (4, 3),  
             "*": (2, 2),  
@@ -57,6 +74,13 @@ class Postfija:
         return a
 
     def eval_expr_aritm(self) -> float:
+        """Método que calcula el resultado de notacion postfija.
+
+        Returns
+        -------
+        float
+            Retorna el resultado de la operacion postfija
+        """
         operadores = {'+': lambda x, y: x + y, '-': lambda x, y: x - y,
                       '*': lambda x, y: x * y, '/': lambda x, y: x / y, 
                       '^': lambda x, y: x ** y}
@@ -70,3 +94,4 @@ class Postfija:
                 pila.apilar(operadores[i](operando_1, operando_2))
 
         return pila.desapilar()
+    
