@@ -1,6 +1,3 @@
-
-# DEIBY ALEJANDRO DELGADO ESTRADA
-# YOEL ALEJANDRO TORRES ARCINIEGAS
 from nodos import Nodo_listaSE
 
 class Pila:
@@ -113,5 +110,4 @@ class Pila:
                     cadena_salida += f"({actual.dato}){'\n::\n' if actual.sig else ''}"
                 actual = actual.sig
             return cadena_salida
-        return "===(c)==="     
-
+        return "===(c)==="

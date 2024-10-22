@@ -1,15 +1,15 @@
-
-# DEIBY ALEJANDRO DELGADO ESTRADA
-# YOEL ALEJANDRO TORRES ARCINIEGAS
+#YOEL TORRES - DEIBY DELGADO
 from nodos import Nodo_listaSE
-    
+
 class Cola:
     """Clase que implementa el funcionamiento del TAD Cola
     """
     def __init__(self):
         """Método que realiza la creación e inicialización de la Cola
         """
-        self.__primero = None
+        self.__frente: Nodo_listaSE = None
+        self.__tam = 0
+        #self.__tipodato = tipodato
     
     def es_vacia(self):
         """Método que verifica si la cola se encuentra vacía
@@ -18,7 +18,7 @@ class Cola:
         bool
         Retorna True si la cola es vacia. False en caso contrario
         """
-        return self.__primero is None
+        return self.__frente is None
     
     def encolar(self, nuevo_dato):
         """Método que adiciona un nuevo dato al final de la cola. Realizar la
@@ -32,16 +32,17 @@ class Cola:
         bool
         True si nuevo_dato fue encolado. False en caso contrario
         """
-        if self.__primero and not isinstance(nuevo_dato, type(self.__primero.dato)):
+        if self.__frente and not isinstance(nuevo_dato, type(self.__frente.dato)):
             return False
         nuevo_nodo = Nodo_listaSE(nuevo_dato)
-        actual = self.__primero
-        if actual:
+        if self.__frente:
+            actual = self.__frente
             while actual.sig:
                 actual = actual.sig
             actual.sig = nuevo_nodo
-            return True
-        self.__primero = nuevo_nodo
+        else:
+            self.__frente = nuevo_nodo
+        self.__tam += 1  
         return True
     
     def desencolar(self):
@@ -53,9 +54,10 @@ class Cola:
         El dato del primer nodo de la cola y None cuando la cola no
         contenga nodos/datos
         """
-        if self.__primero:
-            actual = self.__primero.dato
-            self.__primero = self.__primero.sig
+        if self.__frente:
+            actual = self.__frente.dato
+            self.__frente = self.__frente.sig
+            self.__tam -= 1
             return actual
         return None
     
@@ -67,7 +69,7 @@ class Cola:
         object|None
         El dato del primer nodo en la cola y None cuando la cola no
         contenga nodos/datos"""
-        return self.__primero.dato if self.__primero else None
+        return self.__frente.dato if self.__frente else None
     
     def __len__(self):
         """Método que retorna del número de nodos que contiene la cola
@@ -76,12 +78,14 @@ class Cola:
         int
         Tamaño de la cola
         """
-        actual = self.__primero
-        cantidad_nodos = 0
+        return self.__tam
+
+    def __iter__(self):
+        actual = self.__frente
         while actual:
-            cantidad_nodos += 1
+            yield actual
             actual = actual.sig
-        return cantidad_nodos
+
     
     def __str__(self):
         """Método especial encargado de retornar una cadena con los datos
@@ -97,9 +101,4 @@ class Cola:
         Cuando no hay datos:
         “@|”
         """
-        cadena = "@|"
-        actual = self.__primero
-        while actual:
-            cadena += "<-" + (f"{{{actual.dato}}}" if actual is self.__primero else f"[{actual.dato}]")
-            actual = actual.sig
-        return cadena
+        return "@|" if self.es_vacia() else "@|<-" + "<-".join([f"{{{nodo.dato}}}" if nodo == self.__frente else f"[{nodo.dato}]" for nodo in self])
