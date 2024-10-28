@@ -48,8 +48,15 @@ class ArbolBinario:
             return 0
         
     def hojas(self):
-        #cantidad de hojas que tiene el arbol
-        pass
+        return self.__hojas(self.raiz)
+    def __hojas(self, sub_arbol):
+        if sub_arbol:
+            if sub_arbol.izq or sub_arbol.der:
+                return (self.__hojas(sub_arbol.izq) + self.__hojas(sub_arbol.der))
+            else:
+                return 1
+        return 0
+
 
     def internos(self):
         # identifica los nodos 
@@ -65,3 +72,10 @@ class ArbolBinario:
 
 
 
+if __name__=='__main__':
+    abin = ArbolBinario()
+    abin.adicionar(10)
+    abin.adicionar(12)
+    abin.adicionar(5)
+    print(len(abin))
+    print(abin.encontrar(12))

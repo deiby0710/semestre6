@@ -1,6 +1,6 @@
-from nodos import nodoArbol_Bin
-from abin import ArbolBinario
-from excepciones import DuplicatedKeyError
+from bed.jerarquicas.nodos import nodoArbol_Bin
+from bed.jerarquicas.abin import ArbolBinario
+from bed.jerarquicas.excepciones import DuplicatedKeyError
 class ArbolBinario_Bus(ArbolBinario):
     def adicionar(self, nueva_clave):
         self.raiz = self.__adicionar(self.raiz, nueva_clave)
