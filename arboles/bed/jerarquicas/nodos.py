@@ -1,4 +1,4 @@
-class nodoArbol_Bin:
+class NodoArbol_Bin:
 
     def __init__(self, clave):
         self.clave = clave

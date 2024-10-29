@@ -1,6 +1,5 @@
-from nodos import nodoArbol_Bin
+from bed.jerarquicas.nodos import NodoArbol_Bin
 from random import random
-
 class ArbolBinario:
 
     def __init__(self):
@@ -11,7 +10,7 @@ class ArbolBinario:
     
     def __adicionar(self, sub_arbol, nueva_clave):
         if sub_arbol is None:
-            sub_arbol = nodoArbol_Bin(nueva_clave)
+            sub_arbol = NodoArbol_Bin(nueva_clave)
         elif random() <= 0.5: #adicionar por izq
             sub_arbol.izq = self.__adicionar(sub_arbol.izq, nueva_clave)
         else:
