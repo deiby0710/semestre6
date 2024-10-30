@@ -1,3 +1,5 @@
+# DEIBY ALEJANDRO DELGADO ESTRADA
+# YOEL ALEJANDRO TORRES ARCINIEGAS
 from bed.jerarquicas.nodos import NodoArbol_Bin
 from random import random
 class ArbolBinario:
@@ -11,7 +13,7 @@ class ArbolBinario:
     def __adicionar(self, sub_arbol, nueva_clave):
         if sub_arbol is None:
             sub_arbol = NodoArbol_Bin(nueva_clave)
-        elif random() <= 0.5: #adicionar por izq
+        elif random() <= 0.5:
             sub_arbol.izq = self.__adicionar(sub_arbol.izq, nueva_clave)
         else:
             sub_arbol.der = self.__adicionar(sub_arbol.der, nueva_clave)
@@ -64,17 +66,3 @@ class ArbolBinario:
     def altura(self):
         #altura de un arbol
         pass
-
-    
-
-
-
-
-
-if __name__=='__main__':
-    abin = ArbolBinario()
-    abin.adicionar(10)
-    abin.adicionar(12)
-    abin.adicionar(5)
-    print(len(abin))
-    print(abin.encontrar(12))

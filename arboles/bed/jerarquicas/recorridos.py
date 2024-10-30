@@ -1,13 +1,5 @@
-from abin_bus import ArbolBinario_Bus
-# def pre_ordern(arbol_binario):
-#     __pre_orden(arbol_binario.raiz)
-
-# def __pre_orden(sub_arbol):
-#     if sub_arbol:
-#         print(sub_arbol)
-#         __pre_orden(sub_arbol.izq)
-#         __pre_orden(sub_arbol.der)
-
+# DEIBY ALEJANDRO DELGADO ESTRADA
+# YOEL ALEJANDRO TORRES ARCINIEGAS
 # PRE-ORDEN
 def pre_orden(arbol_bin):
  __pre_orden(arbol_bin.raiz)
@@ -134,10 +126,3 @@ def __str_post_orden(sub_arbol, resultado, sep, es_raiz):
         if sub_arbol.izq is None and sub_arbol.der is None:
             tipo_nodo = "(🍂){}"  # Nodo hoja
         resultado.append(tipo_nodo.format(sub_arbol.clave))
-# Para probarlo
-# abb = ArbolBinario_Bus()
-# abb.adicionar(15)
-# abb.adicionar(20)
-# abb.adicionar(16)
-# abb.adicionar(10)
-# pre_ordern(abb)

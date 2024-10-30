@@ -1,3 +1,5 @@
+# DEIBY ALEJANDRO DELGADO ESTRADA
+# YOEL ALEJANDRO TORRES ARCINIEGAS
 from bed.jerarquicas.abin import ArbolBinario
 from bed.jerarquicas.nodos import NodoArbol_Bin
 from bed.jerarquicas.excepciones import DuplicatedKeyError
@@ -48,7 +50,7 @@ class ArbolBinario_Bus(ArbolBinario):
         else:
             raise DuplicatedKeyError(nueva_clave)
         return sub_arbol
-    def econtrar(self, clave_buscar):
+    def encontrar(self, clave_buscar):
         """Método que realiza la búsqueda de una clave en el árbol binario de
         búsqueda.
 
@@ -65,9 +67,9 @@ class ArbolBinario_Bus(ArbolBinario):
         """
         if not isinstance(clave_buscar,type(self.raiz.clave)):
             raise HomogeneityError(clave_buscar)
-        return self.__econtrar(self.raiz, clave_buscar)
+        return self.__encontrar(self.raiz, clave_buscar)
     
-    def __econtrar(self, sub_arbol, clave_buscar):
+    def __encontrar(self, sub_arbol, clave_buscar):
         if sub_arbol:
             if sub_arbol.clave == clave_buscar:
                 return sub_arbol.clave
@@ -77,7 +79,7 @@ class ArbolBinario_Bus(ArbolBinario):
                 return self.__encontrar(sub_arbol.der, clave_buscar)
         return None
     # CONSULTA #1
-    def econtrar_minimo(self):
+    def encontrar_minimo(self):
         """Método que busca y retorna la clave con menor valor del árbol
         binario de búsqueda, o retorna None cuando el árbol binario de
         búsqueda está vacío.
@@ -98,7 +100,7 @@ class ArbolBinario_Bus(ArbolBinario):
         return sub_arbol.clave
     
     # CONSULTA #2
-    def econtrar_maximo(self):
+    def encontrar_maximo(self):
         """Método que busca y retorna la clave con mayor valor del árbol
         binario de búsqueda, o retorna None cuando el árbol binario de
         búsqueda está vacío.
@@ -183,7 +185,3 @@ class ArbolBinario_Bus(ArbolBinario):
                 sub_arbol.clave = nuevo_nodo
                 sub_arbol.der = self.__remover(sub_arbol.der, nuevo_nodo, mayor)
         return sub_arbol
-
-
-if __name__=='__main__':
-    abb = ArbolBinario_Bus()
