@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="../img/P.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENHOSPI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="user" id="username">
+    </div>
+    <div class="container mt-3">
+        <div class="botones">
+                <div class="div_botones">
+                    <button id="facturacion-btn" class="btn-success btn-custom-1">Facturacion Pendiente</button>
+                    <button id="agregar-paciente-btn-1" class="btn-success btn-custom-1">Agregar Paciente</button>
+                    <button id="consulta-btn"class="btn-success btn-custom-1">Consulta Entregados</button>
+                    <button id="generar-reporte" class="btn-success btn-custom-1 last-btn" onclick="generarReporte()">Generar Reporte</button>
+                    <button id="logoutButton" class="log-btn btn-danger">Cerrar Sesión</button>
+                </div>
+        </div><br>
+        <div class="formulario_principal" id="id_formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row align-items-center" style="margin: 0; padding: 0;">
+                        <!-- Columna izquierda con la imagen -->
+                        <div class="col-md-4 text-left" style="padding: 5px;">
+                            <img src="../img/logo.png" alt="Vini" class="logo1" style="width: 250px; height: auto;">
+                        </div>
+                        
+                        <!-- Columna central con el texto -->
+                        <div class="col-md-4 text-center" style="padding: 10px;">
+                            <h4 style="font-size: 15px;" class="m-0">ACTA DE ENTREGA DE MEDICAMENTOS Y/O INSUMOS</h4>
+                        </div>
+                        
+                        <!-- Columna derecha con el título -->
+                        <div class="col-md-4 text-center" style="padding: 10px;">
+                            <h4 style="font-size: 15px;" class="m-0">Número del Entregado</h4>
+                            <input type="text" id="numero-entregado" class="form-control form-entregado" style="width: 200px; margin: 0 auto;" required readonly>
+                        </div>
+                    </div>
+                    
+                    
+                <div class="col-md-12 text-center">
+                    <h4 style="font-size: 15px;" > Por medio de la presente se evidencia la dispensación (entrega informada) de los medicamentos siguientes:</h4></br>
+                </div>
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Tipo ID</th>
+                                <th class="text-center">Paciente</th>
+                                <th class="text-center">Celular</th>
+                                <th class="text-center">EPS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" id="fecha_solicitud" class="form-control"></td>
+                                <td><input type="text" class="form-control identificacion" id="identificacionId"required></td>
+                                <td><input type="text" class="form-control form-id" id="tipoIdentificacionId"required></td>
+                                <td><input type="text" id="nombrePaciente" class="form-control form-paciente" required></td>
+                                <td><input type="text" id="celular1" class="form-control form-telefono" required></td>
+                                <td><input type="text" id="eps" maxlength="50" class="form-control form-eps"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center d-none">Nº Fórmula</th>
+                                <th class="text-center d-none">Celular 2</th>
+                                <th class="text-center d-none">Dirección</th>
+                                <th class="text-center d-none">Ámbito de prestación de la actividad</th>
+                                <th class="text-center">Municipio</th>
+                                <th class="text-center">Punto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-none"><input type="number" id="numeroFormula" maxlength="50" class="form-control d-none" value="000"></td>
+                                <td class="d-none"><input type="number" id="celular2" maxlength="10" class="form-control d-none" value="000"></td>
+                                <td class="d-none"><input type="text" id="direccion" class="form-control d-none" value="000"></td>
+                                <td class="d-none"><input type="text" id="ambito" class="form-control d-none" value="000"></td>
+                                <td><input type="text" id="municipio" class="form-control"></td>
+                                <td>
+                                    <input id="sede" name="sede" type="text" class="form-control form-inline-input" readonly>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr style="border: 1,7px solid black; margin: 15px;" class="no-print">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center d-none">Tipo Contrato</th>
+                                <th class="text-center d-none">Código Diagnóstico</th>
+                                <th class="text-center d-none w-50">Diagnóstico</th>
+                                <th class="text-left d-none " style="width: 85px;">Plan</th>
+                                <th class="text-center d-none">Fecha Fórmula</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-none">
+                                    <select class="form-control" id="tipoContraro">
+                                        <option value="C">000</option>
+                                        <option value="S">Evento</option>
+                                        <option value="O">OPS</option>
+                                    </select>
+                                </td>
+                                <td class="d-none"><input type="text" id="codigoDiagnostico" class="form-control diagnostico" maxlength="4" value="000"></td>
+                                <td class="d-none"><input type="text" id="nombreDiagnostico" class="form-control form-nombre-diagnostico" value="000"></td>
+                                <style>
+                                    .form-nombre-diagnostico {
+                                        width: 90%; /* O el valor que prefieras */
+                                    }
+                                </style>
+                                <td class="d-none">
+                                    <select id="planSOS" name="plan" class="form-control form-inline-input" required>
+                                        <option value="contributivo">000</option>
+                                        <option value="subsidiado">SUBSIDIADO</option>
+                                        <option value="tutela">TUTELA</option>
+                                    </select>
+                                    <style>
+                                        #planSOS {
+                                            margin-left: -50px;
+                                            width: 160%;
+                                        }
+                                    </style>
+                                </td>
+                                <td class="d-none"><input type="date" class="form-control" id="fechaFormula" onkeydown="return false;"
+                                    min="2024-01-01" value="2024-01-01"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print"> 
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Nombre Genérico</th>
+                                <th class="text-center d-none">Código producto</th>
+                                <th class="text-center">Laboratorio</th>
+                                <th class="text-center">Nombre Comercial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input class="form-control form-prod" type="text" id="medicamento" placeholder="Escribe un medicamento..." list="medicamentos-list" autocomplete="off">
+                                    <ul id="medicamentos-list" class="med-list"></ul>
+                                </td>
+                                <td class=""><input type="text" id="laboratorio"class="form-control"></td>
+                                <td class="d-none"><input type="text" id="codigo_producto"class="form-control"></td>
+                                <td class="d-none"><input type="text" id="laboratorio" class="form-control"></td>
+                                <td><input type="text" id="nombre_comercial" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center d-none">Tipo producto</th>
+                                <th class="text-center d-none">Cobertura</th>
+                                <th class="text-center d-none">Cantidad prescrita</th>
+                                <th class="text-center d-none">Tipo de entrega</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="d-none">
+                                <td><input type="text" id="tipo_producto" class="form-control form-tipo"></td>
+                                <td><input type="text" id="cobertura" class="form-control form-inline-input"></td>
+                                <td><input type="number" id="cantidad_prescrita" maxlength="4" class="form-control"></td>
+                                <td>
+                                    <select name="tipoEntrega" id="tipoEntrega" class="form-control">
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Domicilio">Domicilio</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center d-none">Sede del Pendiente</th>
+                                <th class="text-center d-none">Estado dispensacion</th>
+                                <th class="text-center d-none">Cum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="d-none">
+                                    <select id="estado-dis" name="estado-dis" class="form-control form-inline-input" required>
+                                        <option value="Pendiente">Pendiente</option>
+                                        <option value="Dispensa">Dispensa</option>
+                                        <option value="Anulada">Anulada</option>
+                                    </select>
+                                </td>
+                                <td class="d-none"><input type="text" id="cum" maxlength="12" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Forma Farmacéutica</th>
+                                <th class="text-center">Fecha Vencimiento</th>
+                                <th class="text-center">Lote</th>
+                                <th class="text-center">Cantidad Dispensada</th>
+                            </tr>
+                            <tr>
+                                <th><input type="text" id="forma_farmaceutica" class="form-control"></th>
+                                <td><input type="date" class="form-control" id="fecha_vencimiento" onkeydown="return false;"
+                                    min="2024-01-01"></td>
+                                <th><input type="text" id="lote" class="form-control"></th>
+                               
+                                <th><input type="number" id="cantidad_pendiente" class="form-control w-100 ml-1" required>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row no-print">
+                <div class="col-md-12">
+                    <table class="mt-2 w-100">
+                        <thead class="text-dark">
+                            <tr>    
+                                <th class="text-center">Observación</th>
+                            </tr>
+                            <tr>
+                                <th class=""><input type="text" id="observacion" class="form-control"></th>
+                                <th class="d-flex">
+                                    <button type="submit" id="btn_cantidad_pendiente" class="btn btn-custom btn-block ml-2 w-100">Añadir</button>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <table class="table table-bordered" style="border: 1px solid #0fba70;">
+                        <thead class="bg-success text-white text-center">
+                            <tr class="black_color">
+                                
+                                <th class="w-25">Nombre Genérico</th>
+                                <th>Laboratorio</th>
+                                <th>Nombre comercial</th>
+                                <th>Forma Farmacéutica</th>
+                                <th>Fecha Vencimiento</th>
+                                <th>Lote</th>
+                                <th>Observación</th>
+                                <th class="bg-danger">Dispensado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-productos">
+                            <div id="tabla_resultado">
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 100%;" class="d-flex justify-content-center align-items-center">
+                <button id="guardar-btn" class="btn btn-dark" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Guardar</button>
+                <button id="vaciar-btn" class="btn btn-dark ml-3" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);" disabled>Vaciar</button>
+            </div> 
+            <div class="mt-2 ocultar imprimir">
+                <table class="table1 table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><h4 class="px_letras">Se informa acerca del almacenamiento adecuado de medicamentos</h4></td>
+                            <td><h4 class="px_letras">X</h4></td>                            
+                            <td><h4 class="px_letras">Se informa a cerca del uso adecuado de medicamentos (vìa de administraciòn)</h4></td>
+                            <td><h4 class="px_letras">X</h4></td>                            
+                        </tr>
+                        <tr>
+                            <td><h4 class="px_letras">Se informa acerca de la disposición final adecuada de los
+                                medicamentos</h4></td>
+                            <td><h4 class="px_letras">X</h4></td>                            
+                            <td><h4 class="px_letras">Se indaga al paciente acerca de posibles reacciones adversas</h4></td>
+                            <td><h4 class="px_letras">X</h4></td>                            
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <p class="texto-justificado">
+                                    El abajo firmante, mayor de edad, declara bajo la gravedad del juramento, que todos los documentos que suministro, son auténticos y que su contenido es veraz. En consecuencia, manifiesto que soy consciente de que, en el evento de que la información en ellos contenida no estuviera ceñida a la verdad, afrontaré las acciones legales correspondientes en mi contra, entre ellas, la denuncia penal correspondiente ante la Fiscalía General de la Nación por parte de Genhospi S.A.S. y/o sus afiliados. Por consiguiente, me hago responsable de que la totalidad de la documentación que en esta fecha aporto es fiel a la realidad, que no ha sido manipulada ni editada y, por ende, libero de cualquier responsabilidad a la empresa que me suministra lo entregado. Finalmente, manifiesto que los medicamentos, e insumos que me han sido entregados, están dirigidos directamente a la persona que los requiere y que los mismos no van a ser vendidos ni usados con otras finalidades ilegales.
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table1 table-bordered w-100">
+                    <colgroup>
+                        <col style="width: 25%;"> 
+                        <col style="width: 10%;"> 
+                        <col style="width: 35%;"> 
+                        <col style="width: 10%;"> 
+                        <col style="width: 20%;"> 
+                    </colgroup>
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                <h4 class="px_letras">Quien Entrega</h4>
+                            </td>
+                            <td colspan="2" class="text-center">
+                                <h4 class="px_letras">Quien Recibe</h4>
+                            </td>
+                            <td rowspan="3" class="text-center align-top">
+                                <h4 class="px_letras">Huella</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                            </td>
+                            <td colspan="2">
+                                <p>Firma</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Entrega en punto de dispensación</td>
+                            <td>X</td>
+                            <td colspan="2">Nombre Completo</td>
+                        </tr>
+                        <tr>
+                            <td>Entrega en domicilio paciente</td>
+                            <td></td>
+                            <td>D. Identificación</td>
+                            <td>Celular</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- --------------------------------------------------------------------------------------------------------------- -->
+        <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    </div>
+    <!-- Modal de éxito -->
+    <div id="successModal" style="display:none;">
+        <div style="background: white; padding: 20px; border-radius: 5px; width: 300px; margin: auto; position: relative; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); display: flex; align-items: center; flex-direction: column;">
+            <p id="modalMessage" style="text-align: center;">Datos guardados correctamente.</p>
+            <button id="closeModal" style="background: #0ac150; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Aceptar</button>
+        </div>
+    </div>
+
+    <div id="modalEntregados" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="contenidoModal"></div>
+        </div>
+    </div>
+
+    <div id="agregar_usuario" class="container mt-3" style="display: none;">
+        <div class="formulario_principal">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="w-100">
+                        <thead class="text-dark">
+                            <tr>
+                                <th class="text-center">Identificación</th>
+                                <th class="text-center">Tipo ID</th>
+                                <th class="text-center">Paciente</th>
+                                <th class="text-center">Celular</th>
+                                <th class="text-center">EPS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" id="Aidentificacion" required></td>
+                                <td>
+                                    <select id="AtipoIdentificacion" name="tipoIdentificacion" class="form-control form-inline-input" required>
+                                        <option value="CC">CC</option>
+                                        <option value="TI">TI</option>
+                                        <option value="AS">AS</option>
+                                        <option value="CE">CE</option>
+                                        <option value="CN">CN</option>
+                                        <option value="MS">MS</option>
+                                        <option value="NI">NI</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PT">PT</option>
+                                        <option value="RC">RC</option>
+                                        <option value="SC">SC</option>
+                                        
+                                    </select>
+                                </td>
+                                <td><input type="text" id="AnombrePaciente" class="form-control form-paciente" required oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');"></td>
+                                    <td><input type="number" id="Acelular1" class="form-control form-telefono" required></td>
+                                    <td>
+                                        <select id="Aeps" name="plan" class="form-control form-eps form-inline-input" required>
+                                            <option value="EMSSANAR EPS SAS">EMSSANAR EPS SAS</option>
+                                            <option value="MALLAMAS EPS">MALLAMAS EPS</option>
+                                            <option value="SANITAS EPS">SANITAS EPS</option>
+                                            <option value="ASMET SALUD EPS">ASMET SALUD EPS</option>
+                                            <option value="SOS SALUD">SOS SALUD</option>
+                                        </select>
+                                    </td>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="agregar-paciente-btn" class="btn btn-custom">Agregar Paciente</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="consulta_usuario" class="container">
+        <form id="form_consultar" class="mb-3 d-flex mb-3 justify-content-center align-items-center consu">
+            <input type="text" id="identificacion_c" name="identificacion" class="form-control w-25" placeholder="Ingrese la identificación">
+            <button type="submit" id="btn_buscar" class="btn btn-dark ml-2"style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">Buscar</button>
+        </form>
+    </div>
+
+    <div>
+        <div id="result" class="result" style="display: none;"></div>
+            <!-- Aquí se mostrarán los datos del paciente -->
+        </div>
+
+        <div id="pendientesResult" class="pendientes-result"></div>
+            <!-- Aquí se mostrarán los datos de la tabla pendientes -->
+        </div>
+        <div id="tablaEntregados">
+            
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || 'Invitado';
+    const sede = urlParams.get('sede') || 'Desconocida';
+    if(username=='Invitado'){
+        window.location.href='login.html';
+    }
+
+    // Mostrar el mensaje de bienvenida
+    document.getElementById('username').setAttribute('registradopor',username);
+    document.getElementById('username').innerText = `¡Bienvenid@ ${username} de la sede ${sede}!`;
+    document.getElementById('sede').value = `${sede}`;
+    
+
+    // -----------------------------------------------------------------------
+
+    c2 = document.getElementById('celular2');
+    c1 = document.getElementById('Acelular1');
+    function limitarCaracteres() {
+        if (this.value.length > 10) {
+            this.value = this.value.slice(0, 10); // Limita a 10 caracteres
+        }
+    };
+    c1.addEventListener('input',limitarCaracteres)
+    c2.addEventListener('input',limitarCaracteres)
+
+    // -----------------------------------------------------------------------
+    // Obtener el elemento input de fecha
+    const inputFecha = document.getElementById('fecha_solicitud');
+    // Crear un objeto de fecha actual
+    const fechaActual = new Date();
+    // Formatear la fecha en formato YYYY-MM-DD (requerido por el input de tipo date)
+    const year = fechaActual.getFullYear();
+    const month = ('0' + (fechaActual.getMonth() + 1)).slice(-2); // Meses van de 0-11, por eso sumamos 1
+    const day = ('0' + fechaActual.getDate()).slice(-2);
+    // Asignar la fecha actual al valor del input
+    inputFecha.value = `${year}-${month}-${day}`;
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const identificacionInput = document.querySelector('input.identificacion'); // Campo de identificación
+        const tipoIdInput = document.querySelector('.form-id'); // Campo tipo identificación
+        const pacienteInput = document.querySelector('.form-paciente'); // Campo primer nombre
+        const celularInput = document.querySelector('.form-telefono'); // Campo celular
+        const eps = document.querySelector('.form-eps'); // Campo eps
+
+        const diagnosticoInput = document.querySelector('input.diagnostico'); 
+        const nombreDiagnosticoInput = document.querySelector('.form-nombre-diagnostico');  
+
+        identificacionInput.addEventListener('blur', () => {
+    const numeroIdentificacion = identificacionInput.value.trim();
+    if (numeroIdentificacion) {
+        fetch(`/api/paciente?numeroIdentificacion=${numeroIdentificacion}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Paciente no encontrado');
+                }
+                return response.json();
+            })
+            .then(data => {
+                tipoIdInput.value = data.tipoIdentificacion || '';
+                pacienteInput.value = data.primerNombre || '';
+                celularInput.value = data.telefono || '';
+                eps.value = data.eps || '';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Muestra un alert con el mensaje de error
+                alert('Paciente no encontrado, registrar en Agregar Paciente');
+
+                // Limpia los campos del formulario
+                identificacionInput.value = '';
+                tipoIdInput.value = '';
+                pacienteInput.value = '';
+                celularInput.value = '';
+                eps.value = '';
+            });
+    }
+});
+
+const identificacionAgregarU = document.getElementById('Aidentificacion');
+// Agregar paciente validacion
+identificacionAgregarU.addEventListener('blur', () => {
+    const numeroIdentificacion = identificacionAgregarU.value.trim();
+    if (numeroIdentificacion) {
+        fetch(`/api/paciente?numeroIdentificacion=${numeroIdentificacion}`)
+            .then(response => {
+                    if (response.ok) {
+                        alert('Ya existe el paciente con esta identificación.');
+                        identificacionAgregarU.value = "";
+                    }
+                    return response.json();
+                })
+    }
+});
+});
+
+
+document.getElementById('medicamento').addEventListener('input', function() {
+    const query = this.value.toLowerCase(); // Convertir a minúsculas para una comparación más flexible
+    if (query.length > 1) {
+        fetch(`/api/medicamentos`)
+        .then(response => response.json())
+        .then(data => {
+            const list = document.getElementById('medicamentos-list');
+            list.innerHTML = ''; // Limpiar la lista actual
+
+            // Filtrar medicamentos que contengan el texto ingresado
+            const filteredMedicamentos = data.filter(medicamento => 
+                medicamento.nombre.toLowerCase().includes(query)
+            );
+
+            // Crear los elementos de la lista (li) solo con los medicamentos que coincidan
+            filteredMedicamentos.forEach(medicamento => {
+                const listItem = document.createElement('li');
+                listItem.textContent = medicamento.nombre; // Nombre del medicamento
+                listItem.dataset.id = medicamento.codigo; // Código del medicamento
+                listItem.dataset.laboratorio = medicamento.laboratorio; 
+                listItem.dataset.valorunitario = medicamento.valorunitario; 
+                listItem.dataset.tipoproducto = medicamento.tipoproducto; 
+                listItem.dataset.cobertura = medicamento.cobertura; 
+                listItem.dataset.cum = medicamento.cum; 
+
+                // Al hacer clic en un elemento de la lista, seleccionamos el medicamento
+                listItem.addEventListener('click', function() {
+                    // Llenamos el campo de búsqueda con el nombre seleccionado
+                    document.getElementById('medicamento').value = listItem.textContent;
+
+                    // Llenar otros campos del formulario con los datos del medicamento seleccionado
+                    document.getElementById('codigo_producto').value = medicamento.codigo;
+                    document.getElementById('laboratorio').value = medicamento.laboratorio; 
+                    document.getElementById('tipo_producto').value = medicamento.tipoproducto; 
+                    document.getElementById('cobertura').value = medicamento.cobertura; 
+                    document.getElementById('cum').value = medicamento.cum;
+
+                    // Limpiar la lista una vez seleccionado el medicamento
+                    list.innerHTML = '';
+                });
+
+                list.appendChild(listItem); // Añadir el elemento a la lista
+            });
+
+            // Si no hay resultados, mostrar un mensaje
+            if (filteredMedicamentos.length === 0) {
+                const noResult = document.createElement('li');
+                noResult.textContent = 'No se encontraron medicamentos.';
+                list.appendChild(noResult);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+        document.getElementById('medicamentos-list').innerHTML = ''; // Limpiar la lista si el input tiene menos de 2 caracteres
+    }
+});
+
+
+document.getElementById('btn_cantidad_pendiente').addEventListener('click', function() {
+    // Obtener los valores de los campos
+    const codigo = document.getElementById('codigo_producto').value;
+    const cantidadPendiente = document.getElementById('cantidad_pendiente').value;
+    const numeroFormula = document.getElementById('numeroFormula').value;
+    const fechaRegistro = document.querySelector('input[type="date"]').value;
+    const identificacion = document.querySelector('.identificacion').value;
+    const tipoIdentificacion = document.querySelector('.form-id').value;
+    const nombre = document.querySelector('.form-paciente').value;
+    const tipoProducto = document.getElementById('tipo_producto').value;
+    const cobertura = document.getElementById('cobertura').value;
+    const cantidadPrescrita = document.getElementById('cantidad_prescrita').value;
+    const tipoEntrega = document.getElementById('tipoEntrega').value;
+    const sedePendiente = document.getElementById('sede').value;
+    const estadoDispensacion = document.getElementById('estado-dis').value;
+    const cum = document.getElementById('cum').value;
+    const fechaFormula = document.getElementById('fechaFormula').value;
+    const codigoDiagnositco = document.getElementById('codigoDiagnostico').value;
+    const nombreDiagnostico = document.getElementById('nombreDiagnostico').value;
+    const direccion = document.getElementById('direccion').value;
+
+    // Valores que si son
+    const producto = document.getElementById('medicamento').value;
+    const nombre_comercial = document.getElementById('nombre_comercial').value;
+    const laboratorio = document.getElementById('laboratorio').value;
+    const forma_farmaceutica = document.getElementById('forma_farmaceutica').value;
+    const fecha_vencimiento = document.getElementById('fecha_vencimiento').value;
+    const lote = document.getElementById('lote').value;
+    const observacion = document.getElementById('observacion').value;
+    
+
+
+    // Array para almacenar los mensajes de error
+    let missingFields = [];
+
+    // Verificar qué campos están vacíos
+
+    if (!producto) missingFields.push('Nombre Genérico');
+    if (!cantidadPendiente) missingFields.push('Cantidad Dispensada');
+    if (!fechaRegistro) missingFields.push('Fecha de registro');
+    if (!identificacion) missingFields.push('Identificación');
+    if (!sedePendiente) missingFields.push('Sede pendiente');
+    if (!fechaFormula) missingFields.push('Fecha de fórmula');
+    if (!fecha_vencimiento) missingFields.push('Fecha de Vencimiento');
+
+
+    // Si hay campos faltantes, mostrar un mensaje
+    if (missingFields.length > 0) {
+        alert('Por favor completa los siguientes campos obligatorios:\n- ' + missingFields.join('\n- '));
+        return;
+    }
+
+    // Reiniciar los inputs
+    document.getElementById("nombre_comercial").value = "";
+    document.getElementById("medicamento").value = "";
+    document.getElementById("laboratorio").value = "";
+    document.getElementById("forma_farmaceutica").value = "";
+    document.getElementById("fecha_vencimiento").value = "";
+    document.getElementById("lote").value = "";
+    document.getElementById("cum").value = "";
+    document.getElementById("observacion").value = "";
+    document.getElementById("cantidad_pendiente").value = "";
+
+
+    // Crear una nueva fila (tr)
+    const nuevaFila = document.createElement('tr');
+    nuevaFila.style.backgroundColor = '#ffffff'; // Fondo blanco
+
+    // Crear las celdas (td) para la fila
+    nuevaFila.innerHTML = `
+        
+        <td>${producto}</td>
+        <td>${laboratorio}</td>
+        <td>${nombre_comercial}</td>
+        <td class="text-center">${forma_farmaceutica}</td>
+        <td class="text-center">${fecha_vencimiento}</td>
+        <td class="text-center">${lote}</td>
+        <td class="text-center"">${observacion}</td>
+        <td class="text-center">${cantidadPendiente}</td>
+        <td class="text-center" style="display: none;">${fechaRegistro}</td>
+        <td class="text-center" style="display: none;">${identificacion}</td>
+        <td class="text-center" style="display: none;">${tipoIdentificacion}</td>
+        <td class="text-center" style="display: none;">${nombre}</td>
+        <td class="text-center" style="display: none;">${tipoProducto}</td>
+        <td class="text-center" style="display: none;">${cobertura}</td>
+        <td class="text-center" style="display: none;">${cantidadPrescrita}</td>
+        <td class="text-center" style="display: none;">${tipoEntrega}</td>
+        <td class="text-center" style="display: none;">${sedePendiente}</td>
+        <td class="text-center" style="display: none;">${estadoDispensacion}</td>
+        <td class="text-center" style="display: none;">${cum}</td>
+    `;
+
+    // Agregar la funcionalidad para eliminar la fila al hacer clic
+    nuevaFila.addEventListener('click', function() {
+        // Crear el modal personalizado para confirmar la eliminación
+        const modal = document.createElement('div');
+        modal.style.background = 'white';
+        modal.style.padding = '20px';
+        modal.style.borderRadius = '5px';
+        modal.style.width = '230px';
+        modal.style.margin = 'auto';
+        modal.style.position = 'fixed';
+        modal.style.top = '50%';
+        modal.style.left = '50%';
+        modal.style.transform = 'translate(-50%, -50%)';
+        modal.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+        modal.style.zIndex = '9999'; // Asegura que el modal esté encima de todo
+
+        // Mensaje del modal
+        const mensaje = document.createElement('p');
+        mensaje.id = 'modalMessage';
+        mensaje.textContent = '¿Deseas eliminar esta fila?';
+        modal.appendChild(mensaje);
+
+        // Botón de aceptar
+        const botonAceptar = document.createElement('button');
+        botonAceptar.id = 'closeModal';
+        botonAceptar.textContent = 'Aceptar';
+        botonAceptar.style.background = '#0ac150';
+        botonAceptar.style.color = 'white';
+        botonAceptar.style.border = 'none';
+        botonAceptar.style.padding = '10px';
+        botonAceptar.style.borderRadius = '5px';
+        botonAceptar.style.cursor = 'pointer';
+        modal.appendChild(botonAceptar);
+
+        // Botón de cancelar
+        const botonCancelar = document.createElement('button');
+        botonCancelar.textContent = 'Cancelar';
+        botonCancelar.style.background = '#dc3545';
+        botonCancelar.style.color = 'white';
+        botonCancelar.style.border = 'none';
+        botonCancelar.style.padding = '10px';
+        botonCancelar.style.borderRadius = '5px';
+        botonCancelar.style.cursor = 'pointer';
+        botonCancelar.style.marginLeft = '10px';
+        modal.appendChild(botonCancelar);
+
+        // Agregar el modal al documento
+        document.body.appendChild(modal);
+
+        // Función para eliminar la fila y cerrar el modal al hacer clic en "Aceptar"
+        botonAceptar.addEventListener('click', () => {
+            nuevaFila.remove(); // Eliminar la fila
+            modal.remove(); // Cerrar el modal
+        });
+
+        // Cerrar el modal al hacer clic en "Cancelar"
+        botonCancelar.addEventListener('click', () => {
+            modal.remove(); // Cerrar el modal
+        });
+    });
+
+    // Agregar la nueva fila al cuerpo de la tabla
+    document.getElementById('tabla-productos').appendChild(nuevaFila);
+});
+
+    // Enviar datos a la db
+
+    document.getElementById('guardar-btn').addEventListener('click', function() {
+        // Obtener los valores de los inputs
+        fetch('/api/pendientes/ultimoNumeroFactura')
+    .then(response => response.json())
+    .then(facturaData => {
+        
+        const filas = document.querySelectorAll('#tabla-productos tr'); // Obtener las filas de la tabla
+        // Crear un objeto de fecha y hora actual
+        const fechTime = new Date();
+        // Formatear la fecha en formato YYYY-MM-DD
+        const year = fechTime.getFullYear();
+        const month = ('0' + (fechTime.getMonth() + 1)).slice(-2); // Meses van de 0-11, por eso sumamos 1
+        const day = ('0' + fechTime.getDate()).slice(-2);
+        // Formatear la hora en formato HH:MM
+        const hours = ('0' + fechTime.getHours()).slice(-2);
+        const minutes = ('0' + fechTime.getMinutes()).slice(-2);
+        const seconds = ('0' + fechaActual.getSeconds()).slice(-2);
+        const fechaYhora = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+        filas.forEach(fila => {
+        const celdas = fila.children;
+        console.log(`Número de celdas en la fila: ${celdas.length}`);
+            // Extraer los datos de cada celda (td)
+            const numerodelentregado =  parseInt(facturaData.numeroFactura)+1;
+            const fecharegistro = fechaYhora
+            const identificacion = document.getElementById('identificacionId').value;
+            const tipoidentificacion = document.getElementById('tipoIdentificacionId').value;
+            const nombre = document.getElementById('nombrePaciente').value // Cuarto <td>
+            const celular = document.getElementById('celular1').value;
+            const eps = document.getElementById('eps').value;
+            const municipio = document.getElementById('municipio').value;
+            const sede = document.getElementById('sede').value;
+            const nombregenerico = celdas[0].innerText;
+            const nombrecomercial = celdas[2].innerText;
+            const laboratorio = celdas[1].innerText;
+            const formafarmaceutica = celdas[3].innerText;
+            const fechavencimiento = celdas[4].innerText;
+            const lote = celdas[5].innerText;
+            const observacion = celdas[6].innerText;
+            const cantidaddispensada = celdas[7].innerText;
+            const registradopor = document.getElementById('username').getAttribute('registradopor');
+
+        const data = {
+            numerodelentregado,
+            fecharegistro,
+            identificacion,
+            tipoidentificacion,
+            nombre,
+            celular,
+            eps,
+            municipio,
+            sede,
+            nombregenerico,
+            laboratorio,
+            nombrecomercial,
+            formafarmaceutica,
+            fechavencimiento,
+            lote,
+            cantidaddispensada,
+            registradopor,
+            observacion
+        };
+
+
+        // Enviar los datos al servidor
+        fetch('/api/pendientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Asegúrate de incluir el cuerpo de la solicitud
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Mostrar el modal de éxito
+            document.getElementById('modalMessage').innerText = `Datos guardados correctamente Número de entregado ${numerodelentregado}`;
+            document.getElementById('successModal').style.display = 'flex';
+        })
+        .catch(error => console.error('Error:', error));
+
+        // Manejar el botón de cerrar del modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('numero-entregado').value = numerodelentregado;
+            document.getElementById('guardar-btn').disabled = true;
+            document.getElementById('vaciar-btn').disabled = false;
+            document.getElementById('fecha_solicitud').readOnly = true;
+            document.getElementById('identificacionId').readOnly = true;
+            document.getElementById('tipoIdentificacionId').readOnly = true;
+            document.getElementById('nombrePaciente').readOnly = true;
+            document.getElementById('celular1').readOnly = true;
+            document.getElementById('eps').readOnly = true;
+            document.getElementById('municipio').readOnly = true;
+            document.getElementById('medicamento').readOnly = true;
+            document.getElementById('laboratorio').readOnly = true;
+            document.getElementById('nombre_comercial').readOnly = true;
+            document.getElementById('forma_farmaceutica').readOnly = true;
+            document.getElementById('fecha_vencimiento').readOnly = true;
+            document.getElementById('lote').readOnly = true;
+            document.getElementById('cantidad_pendiente').readOnly = true;
+            document.getElementById('observacion').readOnly = true;
+            document.getElementById('btn_cantidad_pendiente').disabled = true;
+        });
+    });
+    })
+    .catch(error => console.error('Error al obtener el último número de factura:', error));
+});
+
+    document.getElementById('vaciar-btn').addEventListener('click', () => {
+        location.reload()
+    });
+
+// Enviar a la bd pacientes
+
+document.getElementById('agregar-paciente-btn-1').addEventListener('click', function() {
+    document.getElementById("consulta_usuario").style.display = 'none';
+    document.getElementById("id_formulario_principal").style.display = 'none';
+    document.getElementById("pendientesResult").style.display = 'none';
+    document.getElementById("tablaEntregados").style.display = 'none';
+    document.getElementById("result").style.display = 'none';
+    document.getElementById("agregar_usuario").style.display = 'block';
+    document.getElementById("texto_principal").innerText = 'Agregar Paciente';
+});
+
+document.getElementById('agregar-paciente-btn').addEventListener('click', function() {
+
+        // const idpaciente = parseInt(ultimoIdpaciente.idpaciente)+1;
+        const identificacion = document.getElementById('Aidentificacion').value;
+        const nombre = document.getElementById('AnombrePaciente').value;
+        const tipoIdentificacion = document.getElementById('AtipoIdentificacion').value;
+        const telefono = document.getElementById('Acelular1').value;
+        const eps = document.getElementById('Aeps').value;
+
+        // Crear el objeto de datos
+        const data = {
+            identificacion,
+            tipoidentificacion: tipoIdentificacion,
+            nombre,
+            telefono,
+            eps
+        };
+        
+        // Enviar los datos al servidor
+        fetch('/api/pacientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data) // Asegúrate de incluir el cuerpo de la solicitud
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la solicitud: ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Mostrar el modal de éxito
+            document.getElementById('modalMessage').innerText = data.message;
+            document.getElementById('successModal').style.display = 'flex';
+        })
+        .catch(error => console.error('Error:', error));
+
+        // Manejar el botón de cerrar del modal
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('successModal').style.display = 'none';
+            location.reload();
+        });
+    });
+
+    // Evento para mostrar el formulario cuando se haga clic en el botón "Consulta Pendientes"
+    document.getElementById("consulta-btn").addEventListener("click", function() {
+        // Mostrar el formulario de consulta
+        document.getElementById("consulta_usuario").style.display = 'block';
+        document.getElementById("id_formulario_principal").style.display = 'none';
+        document.getElementById("agregar_usuario").style.display = 'none';
+        // document.getElementById("texto_principal").innerText = 'Consulta Pendiente';
+    });
+
+    document.getElementById("facturacion-btn").addEventListener("click", function() {
+        // Mostrar el formulario de consulta
+        location.reload();
+    });
+
+    // Boton para consultar pacientes
+    document.getElementById('form_consultar').addEventListener('submit', function(event) {
+    event.preventDefault();  // Evitar que el formulario se envíe de forma tradicional
+
+    const identificacion = document.getElementById('identificacion_c').value;
+
+    // Realizar una solicitud AJAX para buscar la identificación
+    fetch(`/buscar?identificacion=${identificacion}`)
+        .then(response => response.json())
+        .then(data => {
+            const resultDiv = document.getElementById('result');
+            const pendientesDiv = document.getElementById('pendientesResult'); // Div para mostrar pendientes
+            
+            // Verifica si hay un mensaje de error en los datos del paciente
+            if (data.message) {
+                resultDiv.innerHTML = `<h3>${data.message}</h3>`;
+                pendientesDiv.style.display = 'none'; // Oculta los resultados de pendientes
+                return;
+            }
+            // Mostrar los datos del paciente
+            resultDiv.innerHTML = `
+    <div class="container mt-3 no-print">
+        <h2 style="color: #333;text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); font-weight: bold; text-align: center;">Datos del Paciente</h2>
+        <div class="row justify-content-between align-items-center" 
+            style="background-color: #dff8e5; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 20px; padding: 20px; font-size: 14px; border: 1px solid #dff8e5;">
+            <div class="col-md-4">
+                <p><strong>Tipo de Identificación:</strong> ${data.paciente.tipoidentificacion || ''}</p>
+                <p><strong>Numero Identificación:</strong> ${data.paciente.identificacion || ''}</p>  
+            </div>
+            <div class="col-md-4">
+                <p><strong>Nombre:</strong> ${data.paciente.nombre || ''}</p>
+                <p><strong>EPS:</strong> ${data.paciente.eps || ''}</p>
+            </div>
+            <div class="col-md-4">
+                <p><strong>Celular:</strong> ${data.paciente.telefono || ''}</p>
+                <p><strong>  </strong> </p>
+            </div>
+        </div>
+`;
+
+// Mostrar los datos de la tabla pendientes
+if (data.pendientes.length > 0) {
+    pendientesDiv.innerHTML = `
+    <h2 style="color: #333;text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); font-weight: bold; text-align: center;" class="mt-3 no-print">Medicamentos Entregados</h2>
+    <div class="container mt-3">
+    <div class="formulario_principal_consulta no-print">
+    <div class="row mt-2">
+                <div class="col-md-12 d-flex justify-content-center align-items-center flex-column">
+                    <table class="table table-bordered">
+                        <thead class="text-center" style="background-color:#dff8e5;">
+                            <tr>
+                                <th>Nº Entregado</th>
+                                <th class="w-25">Fecha Registro</th>
+                                <th>Sede Entregado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-productos">
+                            ${data.pendientes.map((p, index)=> `
+                <tr class="fila-click" style="border-bottom: 1px solid #dff8e5; background-color:white;">
+                    <td style="padding: 10px; border: 1px solid #21ac6b; text-align:center;">${p.numerodelentregado}</td>
+                    <td style="padding: 10px; border: 1px solid #21ac6b; text-align:center;">${new Date(p.fecharegistro).toISOString().split('T')[0]}</td>
+                    <td style="padding: 10px; border: 1px solid #21ac6b;text-align:center;">${p.sede}</td>
+                </tr>
+            `
+        ).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+        </div>
+    </div>
+    `;
+    const filas = document.querySelectorAll('.fila-click');
+    filas.forEach((fila, index) => {
+        fila.addEventListener('click', () => {
+            // const tablaEntregados = document.getElementById('tablaEntregados');
+            numeroEntregado = fila.children[0].textContent
+            console.log(numeroEntregado)
+            fetch(`/buscar-entregados?numerodelentregado=${numeroEntregado}`)
+            .then(response => response.json())
+            .then(dataIn => {
+                console.log(numeroEntregado)
+                console.log(data.paciente.tipoidentificacion)
+                console.log(data.paciente.nombre)
+                console.log(data.paciente.telefono)
+                console.log(data.paciente.eps)
+                tablaEntregados = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="../img/P.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENHOSPI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="container mt-3">
+    <div class="formulario_principal" id="id_formulario_principal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row align-items-center" style="margin: 0; padding: 0;">
+                    <div class="col-md-4 text-left" style="padding: 5px;">
+                        <img src="../img/logo.png" alt="Vini" class="logo1" style="width: 250px; height: auto;">
+                    </div>
+                    <div class="col-md-4 text-center" style="padding: 10px;">
+                        <h4 style="font-size: 15px;" class="m-0">ACTA DE ENTREGA DE MEDICAMENTOS Y/O INSUMOS</h4>
+                    </div>
+                    <div class="col-md-4 text-center" style="padding: 10px;">
+                        <h4 style="font-size: 15px;" class="m-0">Número del Entregado</h4>
+                        <input type="text" id="numero-entregado" class="form-control form-entregado" style="width: 200px; margin: 0 auto;" value="${numeroEntregado}" readonly>
+                    </div>
+                </div>
+                        
+                <div class="col-md-12 text-center">
+                    <h4 style="font-size: 15px;" > Por medio de la presente se evidencia la dispensación (entrega informada) de los medicamentos siguientes:</h4></br>
+                </div>
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center">Fecha</th>
+                            <th class="text-center">Identificación</th>
+                            <th class="text-center">Tipo ID</th>
+                            <th class="text-center">Paciente</th>
+                            <th class="text-center">Celular</th>
+                            <th class="text-center">EPS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="date" id="fecha_solicitud" class="form-control" readonly value="${new Date(dataIn.entregados[0].fecharegistro).toISOString().split('T')[0]}"></td>
+                            <td><input type="text" class="form-control identificacion" id="identificacionId" readonly value="${data.paciente.identificacion}"></td>
+                            <td><input type="text" class="form-control form-id" id="tipoIdentificacionId" readonly value="${data.paciente.tipoidentificacion}"></td>
+                            <td><input type="text" id="nombrePaciente" class="form-control form-paciente" value="${data.paciente.nombre}" readonly></td>
+                            <td><input type="text" id="celular1" class="form-control form-telefono" value="${data.paciente.telefono}" readonly></td>
+                            <td><input type="text" id="eps" maxlength="50" class="form-control form-eps" readonly value="${data.paciente.eps}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="w-100">
+                    <thead class="text-dark">
+                        <tr>
+                            <th class="text-center d-none">Nº Fórmula</th>
+                            <th class="text-center d-none">Celular 2</th>
+                            <th class="text-center d-none">Dirección</th>
+                            <th class="text-center d-none">Ámbito de prestación de la actividad</th>
+                            <th class="text-center">Municipio</th>
+                            <th class="text-center">Punto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="d-none"><input type="number" id="numeroFormula" maxlength="50" class="form-control d-none" value="000" readonly></td>
+                            <td class="d-none"><input type="number" id="celular2" maxlength="10" class="form-control d-none" value="000" readonly></td>
+                            <td class="d-none"><input type="text" id="direccion" class="form-control d-none" value="000" readonly></td>
+                            <td class="d-none"><input type="text" id="ambito" class="form-control d-none" value="000" readonly></td>
+                            <td><input type="text" id="municipio" class="form-control" value="${dataIn.entregados[0].municipio}" readonly></td>
+                            <td>
+                                <input id="sede" name="sede" type="text" class="form-control form-inline-input" value="${data.pendientes[0].sede}" readonly>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead class="bg-success text-white text-center">
+                        <tr class="black_color">
+                           
+                            <th class="w-25">Nombre Genérico</th>
+                            <th>Laboratorio</th>
+                            <th>Nombre comercial</th>
+                            <th>Forma Farmacéutica</th>
+                            <th>Fecha Vencimiento</th>
+                            <th>Lote</th>
+                            <th>Observación</th>
+                            <th class="bg-danger">Dispensado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-productos">
+                        ${dataIn.entregados.map((p)=> `
+                <tr class="fila-click" style="border-bottom: 1px solid #0fba70; background-color:white;">
+                   
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.nombregenerico}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.laboratorio}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.nombrecomercial}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.formafarmaceutica}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.fechavencimiento ? new Date(p.fechavencimiento).toISOString().split('T')[0] : ''}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.lote}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.observacion}</td>
+                    <td style="padding: 10px; border: 1px solid #0fba70; text-align:center;">${p.cantidaddispensada}</td>
+                </tr>
+            `
+        ).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+        <div class="mt-2 ocultar imprimir">
+            <table class="table1 table-bordered">
+                <tbody>
+                    <tr>
+                        <td><h4 class="px_letras">Se informa acerca del almacenamiento adecuado de medicamentos</h4></td>
+                        <td><h4 class="px_letras">X</h4></td>                            
+                        <td><h4 class="px_letras">Se informa a cerca del uso adecuado de medicamentos (vìa de administraciòn)</h4></td>
+                        <td><h4 class="px_letras">X</h4></td>                            
+                    </tr>
+                    <tr>
+                        <td><h4 class="px_letras">Se informa acerca de la disposición final adecuada de los
+                            medicamentos</h4></td>
+                        <td><h4 class="px_letras">X</h4></td>                            
+                        <td><h4 class="px_letras">Se indaga al paciente acerca de posibles reacciones adversas</h4></td>
+                        <td><h4 class="px_letras">X</h4></td>                            
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+    <p class="texto-justificado">
+        El abajo firmante, mayor de edad, declara bajo la gravedad del juramento, que todos los documentos que suministro, son auténticos y que su contenido es veraz. En consecuencia, manifiesto que soy consciente de que, en el evento de que la información en ellos contenida no estuviera ceñida a la verdad, afrontaré las acciones legales correspondientes en mi contra, entre ellas, la denuncia penal correspondiente ante la Fiscalía General de la Nación por parte de Genhospi S.A.S. y/o sus afiliados. Por consiguiente, me hago responsable de que la totalidad de la documentación que en esta fecha aporto es fiel a la realidad, que no ha sido manipulada ni editada y, por ende, libero de cualquier responsabilidad a la empresa que me suministra lo entregado. Finalmente, manifiesto que los medicamentos, e insumos que me han sido entregados, están dirigidos directamente a la persona que los requiere y que los mismos no van a ser vendidos ni usados con otras finalidades ilegales.
+    </p>
+</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table1 table-bordered w-100">
+                <colgroup>
+                    <col style="width: 25%;"> 
+                    <col style="width: 10%;"> 
+                    <col style="width: 35%;"> 
+                    <col style="width: 10%;"> 
+                    <col style="width: 20%;"> 
+                </colgroup>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Entrega</h4>
+                        </td>
+                        <td colspan="2" class="text-center">
+                            <h4 class="px_letras">Quien Recibe</h4>
+                        </td>
+                        <td rowspan="3" class="text-center align-top">
+                            <h4 class="px_letras">Huella</h4>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                        </td>
+                        <td colspan="2">
+                            <p>Firma</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en punto de dispensación</td>
+                        <td>X</td>
+                        <td colspan="2">Nombre Completo</td>
+                    </tr>
+                    <tr>
+                        <td>Entrega en domicilio paciente</td>
+                        <td></td>
+                        <td>D. Identificación</td>
+                        <td>Celular</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+                `
+            
+                
+            const nuevaVentana = window.open('', '_blank', 'width=1000,height=600');
+            nuevaVentana.document.write(tablaEntregados);
+            nuevaVentana.document.close(); 
+            }).catch(error => {
+                console.error('Error en la solicitud:', error);
+                const errorMensaje = document.createElement('p');
+                errorMensaje.textContent = 'Ocurrió un error al obtener los datos. Inténtalo nuevamente.';
+                document.body.appendChild(errorMensaje); // Mostrar el mensaje de error en la página
+            });
+        });
+    })
+
+            } else {
+                pendientesDiv.innerHTML = `
+                <div class="f-flex justify-content-center text-center">
+                    <h3>No hay medicamentos entregados para esta identificación.</h3>
+                <div/>
+                `;
+            }
+
+            const cpf_styles = document.querySelectorAll('.tdPendientesFinal');
+            const inputs_des = document.querySelectorAll('.cantidad-entregada');
+            cpf_styles.forEach((celda,index) => {
+                // Verifica si el valor de la celda es 0
+                if (parseInt(celda.textContent) === 0) {
+                    // Cambia el fondo de la celda a verde
+                    celda.style.backgroundColor = '#5edd9e';
+                    inputs_des[index].disabled = true;
+                }
+            });
+
+            // Mostrar el resultado
+            resultDiv.style.display = 'block'; // Asegúrate de que el resultado del paciente se muestre
+            pendientesDiv.style.display = 'block'; // Asegúrate de que se muestre el div de pendientes
+            // Capturar el botón una vez que el contenido dinámico ha sido insertado en el DOM.
+    const actualizarBtn = document.getElementById('btn_actualizar');
+        });
+});
+
+function calcularPendienteFinal(index, id) {
+    const cantidadEntregadaElement = document.getElementById(`cantidadEntregada-${index}`);
+    const cantidadPendienteFinalElement = document.getElementById(`cantidadPendienteFinal-${index}`);
+    const cantidadPendienteFinalElementTD = document.getElementById(`cantidadPendienteFinalTD-${index}`);
+
+    if (!cantidadEntregadaElement || !cantidadPendienteFinalElement) {
+        console.error(`No se encontró uno de los elementos con id 'cantidadEntregada-${index}' o 'cantidadPendienteFinal-${index}'`);
+        return;
+    }
+
+    if (cantidadEntregadaElement.value.trim() === '' || cantidadEntregadaElement.value === '0') {
+        // Si no se ha ingresado nada en 'cantidadEntregada', mostrar el valor pendiente actual desde la base de datos
+        fetch(`/api/obtener-cantidad-pendiente?idpendientes=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                const cantidadPendiente = Number(data.cantidadpendientefinal) || 0;
+                cantidadPendienteFinalElement.textContent = cantidadPendiente;
+            })
+            .catch(error => {
+                console.error('Error al obtener la cantidad pendiente final actualizada:', error);
+            });
+        return;
+    }
+
+    const cantidadEntregada = Number(cantidadEntregadaElement.value) || 0;
+
+    // Realizar fetch para obtener el valor actualizado desde la base de datos
+    fetch(`/api/obtener-cantidad-pendiente?idpendientes=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            const cantidadPendiente = Number(data.cantidadpendientefinal) || 0;  // Valor actualizado desde la base de datos
+
+            // Validar si la cantidad entregada es mayor a la cantidad pendiente actualizada
+            if (cantidadEntregada > cantidadPendiente) {
+                alert('La cantidad entregada no puede ser mayor que la cantidad pendiente final.');
+                // Limpiar el campo si no cumple la validación y evitar cálculos
+                cantidadEntregadaElement.value = '';
+                cantidadPendienteFinalElement.textContent = cantidadPendiente; // Restaurar el valor original
+                cantidadPendienteFinalElementTD.style.backgroundColor = 'white'; // Restablecer el color a blanco
+                return;
+            }
+            // Calcular el pendiente final
+            const pendienteFinal = cantidadPendiente - cantidadEntregada;
+            cantidadPendienteFinalElement.textContent = pendienteFinal >= 0 ? pendienteFinal : 0;
+            if (cantidadPendienteFinalElement.textContent === '0') {
+                cantidadPendienteFinalElementTD.style.backgroundColor = '#7edd8e';  
+            } else {
+                cantidadPendienteFinalElementTD.style.backgroundColor = 'white'; 
+            }
+
+        })
+        .catch(error => {
+            console.error('Error al obtener la cantidad pendiente final actualizada:', error);
+        });
+}
+
+
+function generarReporte() {
+    
+            // Realiza la solicitud al servidor para generar el reporte
+            fetch('/generar-reporte')
+                .then(response => {
+                    if (response.ok) {
+                        // Si la respuesta es correcta, convierte la respuesta en un blob
+                        return response.blob();
+                    } else {
+                        throw new Error('Error al generar el reporte');
+                    }
+                })
+                .then(blob => {
+                    // Crear una URL para el archivo descargado
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'reporte_entregados.xlsx'; // Nombre del archivo
+                    document.body.appendChild(a);
+                    a.click(); // Simula el clic para iniciar la descarga
+                    a.remove(); // Elimina el elemento después de la descarga
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ocurrió un error al generar el reporte');
+                });
+        }
+
+        document.getElementById('logoutButton').addEventListener('click', function() {
+        // Hacer una solicitud al servidor para cerrar la sesión
+        fetch('/logout', {
+            method: 'POST',
+            credentials: 'include'  // Incluir cookies en la solicitud
+        }).then(response => {
+            if (response.ok) {
+                // Redirigir a la página de login después de cerrar sesión
+                window.location.href = '/login.html';
+            }
+        }).catch(error => {
+            console.error('Error al cerrar sesión:', error);
+        });
+    });
+
+      // Obtener el rol del usuario desde la URL
+      const params = new URLSearchParams(window.location.search);
+    const role = params.get('role');
+
+    // Ocultar el botón de generar reporte si el usuario no es administrador
+    if (role !== 'admin') {
+        document.getElementById('generar-reporte').style.display = 'none';
+    }
+     
+
+</script>
